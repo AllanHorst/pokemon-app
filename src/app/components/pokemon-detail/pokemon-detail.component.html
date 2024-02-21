@@ -1,0 +1,50 @@
+<style>
+    .wrapper {
+        display: flex;
+    }
+
+    .contentWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .buttonsWrapper {
+        display: flex;
+    }
+
+    .buttonsWrapper a,
+    .buttonsWrapper button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        border: 1px solid #000;
+        text-decoration: none;
+        color: #000;
+    }
+</style>
+
+<main>
+    <div *ngIf="pokemon">
+        <div class="wrapper">
+            <img width="400px" [src]="pokemon.imageUrl" [alt]="pokemon.name">
+            <div class="contentWrapper">
+                <div>
+                    <h2>{{pokemon.id}} - {{ pokemon.name }}</h2>
+                    <h3>Types</h3>
+                    <ul>
+                        <li *ngFor="let type of pokemon.types">{{ type }}</li>
+                    </ul>
+                </div>
+                <div class="buttonsWrapper">
+                    <a *ngIf="pokemon.id > 1 && showNavigationButtons"
+                        [routerLink]="['/pokemon', pokemon.id - 1]">Previous</a>
+                    <a *ngIf="showNavigationButtons" [routerLink]="['/pokemon', pokemon.id + 1]">Next</a>
+
+                    <button *ngIf="onRefreshClick" (click)="onRefreshClick()">Refresh</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

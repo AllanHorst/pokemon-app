@@ -1,0 +1,4 @@
+<div *ngIf="pokemonName">
+    <app-pokemon-detail [showNavigationButtons]="true" [pokemonName]="pokemonName || ''"></app-pokemon-detail>
+</div>
+<router-outlet />

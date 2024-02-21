@@ -1,0 +1,72 @@
+<style>
+    .main {}
+
+    .title {
+        text-align: center;
+    }
+
+    .form {
+        display: flex;
+        justify-content: center;
+    }
+
+    .button {
+        flex-grow: 1;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .select {
+        flex-grow: 2;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .input {
+        flex-grow: 3;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    li {
+        list-style: none;
+        margin: 10px;
+        display: flex;
+    }
+
+    li a {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #3b3b3b;
+        border-radius: 5px;
+    }
+</style>
+
+<main class="main">
+    <div *ngIf="pokemons">
+        <app-pokemon-detail [showNavigationButtons]="false" [onRefreshClick]="getRandomPokemon.bind(this)"
+            [pokemonName]="randomPokemon" />
+    </div>
+    <form class="form" [formGroup]="filterForm" (ngSubmit)="onFilter()">
+        <input class="input" type="text" formControlName="name" placeholder="Name">
+        <select class="select" formControlName="type" placeholder="Type">
+            <option value="">All</option>
+            <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+        <button class="button" type="submit">Apply Filter</button>
+    </form>
+    <div class="content">
+        <div *ngIf="pokemons">
+            <li *ngFor="let pokemon of pokemons">
+                <a [routerLink]="['/pokemon', pokemon.name]">{{ pokemon.name }}</a>
+            </li>
+        </div>
+
+    </div>
+</main>
+<router-outlet />
